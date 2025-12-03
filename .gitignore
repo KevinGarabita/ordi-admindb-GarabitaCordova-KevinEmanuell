@@ -1,0 +1,4 @@
+secrets/
+*.env
+*.sql.bak
+mysql_data/
