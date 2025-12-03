@@ -1,0 +1,103 @@
+Table warehouses {
+  id int [pk]
+  name varchar(100)
+  city varchar(100)
+  address varchar(255)
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table products {
+  id int [pk]
+  sku varchar(50) [unique]
+  name varchar(200)
+  description text
+  price decimal(12,2)
+  default_warehouse_id int
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table employees {
+  id int [pk]
+  name varchar(150)
+  role varchar(100)
+  email varchar(150)
+  phone varchar(50)
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table clients {
+  id int [pk]
+  name varchar(200)
+  phone varchar(50)
+  email varchar(150)
+  address varchar(255)
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table providers {
+  id int [pk]
+  name varchar(200)
+  phone varchar(50)
+  email varchar(150)
+  address varchar(255)
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table orders {
+  id int [pk]
+  client_id int
+  order_date datetime
+  warehouse_id int
+  total decimal(12,2)
+  created_at datetime
+  created_by varchar(100)
+  updated_at datetime
+  updated_by varchar(100)
+}
+
+Table order_items {
+  id int [pk]
+  order_id int
+  product_id int
+  quantity int
+  price decimal(12,2)
+  created_at datetime
+  created_by varchar(100)
+}
+
+Table movements {
+  id int [pk]
+  product_id int
+  employee_id int
+  movement_date datetime
+  movement_type varchar(3)
+  quantity int
+  warehouse_id int
+  note varchar(255)
+  created_at datetime
+  created_by varchar(100)
+}
+
+Ref: products.default_warehouse_id > warehouses.id
+Ref: orders.client_id > clients.id
+Ref: orders.warehouse_id > warehouses.id
+Ref: order_items.order_id > orders.id
+Ref: order_items.product_id > products.id
+Ref: movements.product_id > products.id
+Ref: movements.employee_id > employees.id
+Ref: movements.warehouse_id > warehouses.id
